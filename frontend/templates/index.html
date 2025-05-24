@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow - Organize suas tarefas e aumente sua produtividade</title>
+    <link rel="icon" type="image/png" href="/frontend/static/imagens/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/styles.css"> 
+</head>
+<body class="bg-[#F2F7FB] text-gray-800">
+
+    <header class="bg-white shadow-sm py-4 fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center z-60">
+                <img src="/frontend/static/imagens/logo.png" 
+                     alt="TechFlow Logo" 
+                     class="h-12 md:h-16 w-auto transition-all duration-300 hover:scale-105">
+            </div>
+
+            <div class="hidden lg:flex flex-grow justify-center items-center">
+                <div class="flex gap-8 mx-8">
+                    <a href="#sobre" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Sobre</a>
+                    <a href="#como-funciona" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Como Funciona</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Depoimentos</a>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center gap-4">
+                <button class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Entrar</button>
+                <button class="bg-[#3591E8] text-white px-6 py-2 rounded-lg hover:bg-[#2a73b5] transition-colors open-cadastro-modal">
+                    Criar Conta
+                </button>
+            </div>
+        </nav>
+
+        <div class="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-4 flex flex-col gap-4">
+                <div class="flex flex-col gap-4">
+                    <a href="#sobre" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Sobre</a>
+                    <a href="#como-funciona" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Como Funciona</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Depoimentos</a>
+                </div>
+
+                <div class="border-t pt-4 mt-2">
+                    <button class="w-full bg-[#3591E8] text-white py-2 rounded-lg hover:bg-[#2a73b5] open-cadastro-modal">Criar Conta</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="h-20"></div>
+
+    <section id="sobre" class="container mx-auto px-4 py-16 md:py-24 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                Organize suas tarefas e aumente sua produtividade
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8 mx-auto max-w-2xl">
+                TechFlow é a ferramenta de gerenciamento de tarefas perfeita para profissionais de tecnologia. Simplifique seu fluxo de trabalho, acompanhe seus projetos e nunca perca um prazo novamente.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-[#3591E8] text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:bg-[#2a73b5] transition duration-300 ease-in-out sm:w-auto w-full open-cadastro-modal">
+                    Começar Gratuitamente
+                </button>
+                <button class="bg-white text-[#3591E8] border-2 border-[#3591E8] px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-[#3591E8] hover:text-white transition duration-300 ease-in-out sm:w-auto w-full">
+                    Ver Demonstração
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona" class="bg-[#3591E8]/10 py-16">
+        <div class="container mx-auto px-4 py-16 md:py-24 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#1a365d]">Como Funciona</h2>
+            <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                Comece a organizar suas tarefas em apenas três passos simples.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-[#3591E8] text-white text-2xl font-bold w-12 h-12 flex items-center justify-center rounded-full mb-6 shadow-lg">1</div>
+                        <h3 class="text-xl font-semibold mb-3 text-[#1a365d]">Crie sua conta</h3>
+                        <p class="text-gray-600">Registre-se gratuitamente em menos de um minuto e comece a explorar todas as funcionalidades do TechFlow.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-[#3591E8] text-white text-2xl font-bold w-12 h-12 flex items-center justify-center rounded-full mb-6 shadow-lg">2</div>
+                        <h3 class="text-xl font-semibold mb-3 text-[#1a365d]">Adicione suas tarefas</h3>
+                        <p class="text-gray-600">Crie listas personalizadas e adicione suas tarefas com detalhes, prazos e prioridades.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="bg-[#3591E8] text-white text-2xl font-bold w-12 h-12 flex items-center justify-center rounded-full mb-6 shadow-lg">3</div>
+                        <h3 class="text-xl font-semibold mb-3 text-[#1a365d]">Aumente sua produtividade</h3>
+                        <p class="text-gray-600">Organize, acompanhe e complete suas tarefas de forma eficiente, aumentando sua produtividade diária.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="depoimentos" class="container mx-auto px-4 py-16 md:py-24 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">O Que Nossos Usuários Dizem</h2>
+        <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+            Descubra como o TechFlow está ajudando profissionais a aumentar sua produtividade.
+        </p>
+
+        <div class="relative overflow-hidden">
+            <div class="flex transition-transform duration-500 ease-in-out" id="testimonial-carousel">
+                <div class="min-w-full p-4">
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 md:p-12">
+                        <p class="text-xl italic text-gray-700 mb-8">
+                            "O TechFlow revolucionou a forma como gerencio meus projetos. A interface intuitiva e os recursos de colaboração tornaram meu trabalho muito mais eficiente. Não consigo imaginar minha rotina sem ele!"
+                        </p>
+                        <div class="flex flex-col items-center">
+                            <img src="/frontend/static/imagens/keilyn-foto.jpg" alt="Keilyn Rosas" class="w-20 h-20 rounded-full mb-4 object-cover">
+                            <p class="font-semibold text-lg">Keilyn Rosas</p>
+                            <p class="text-gray-600">Desenvolvedora</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="min-w-full p-4">
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 md:p-12">
+                        <p class="text-xl italic text-gray-700 mb-8">
+                            "A funcionalidade de análise de produtividade mudou completamente minha forma de trabalhar. Consigo identificar gargalos e melhorar meu fluxo como nunca antes!"
+                        </p>
+                        <div class="flex flex-col items-center">
+                            <img src="/frontend/static/imagens/gabs-foto.jpeg" alt="Carlos Oliveira" class="w-20 h-20 rounded-full mb-4 object-cover">
+                            <p class="font-semibold text-lg">Gabrielle Nascimento</p>
+                            <p class="text-gray-600">UX/UI Designer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="prev-testimonial" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100">
+                ←
+            </button>
+            <button id="next-testimonial" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100">
+                →
+            </button>
+
+            <div class="flex justify-center mt-8 space-x-2" id="carousel-indicators">
+                <button class="w-3 h-3 rounded-full bg-[#3591E8]"></button>
+                <button class="w-3 h-3 rounded-full bg-gray-300"></button>
+            </div>
+        </div>
+    </section>
+    <section class="bg-[#3591E8] py-16 md:py-24 text-center text-white rounded-xl mx-4 lg:mx-auto max-w-6xl shadow-xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Pronto para aumentar sua produtividade?</h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">
+            Junte-se a milhares de profissionais que já estão organizando melhor seu tempo e aumentando sua eficiência com o TechFlow.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button class="bg-white text-[#3591E8] px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out open-cadastro-modal">
+                Criar Conta Gratuita
+            </button>
+            <button class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold shadow-md hover:bg-white hover:text-[#3591E8] transition duration-300 ease-in-out">
+                Saiba Mais
+            </button>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-12 mt-16">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <img src="/frontend/static/imagens/logo.png" alt="TechFlow Logo" class="h-8 md:h-10 w-auto">
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Simplifique seu fluxo de trabalho, acompanhe seus projetos e aumente sua produtividade com nossa plataforma intuitiva de gerenciamento de tarefas.
+                </p>
+                <div class="flex space-x-6 mt-8">
+                    <a href="#" class="text-[#3591E8] hover:text-[#2a73b5] transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/>
+                        </svg>
+                    </a>
+
+                    <a href="#" class="text-[#3591E8] hover:text-[#2a73b5] transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-lg mb-4">Empresa</h4>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-white transition duration-300 ease-in-out">Sobre nós</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-lg mb-4">Recursos</h4>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-white transition duration-300 ease-in-out">FAQ</a></li>
+                    <li><a href="#" class="hover:text-white transition duration-300 ease-in-out">Suporte</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-lg mb-4">Precisa de ajuda?</h4>
+                <p class="text-gray-400 text-sm mb-4">Coloque seu e-mail abixo e entraremos em contato com você. Caso precise de algo imediato fale com o suporte. </p>
+                <div class="flex">
+                    <input type="email" placeholder="Seu e-mail" class="p-3 rounded-l-full bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-primary flex-grow">
+                    <button class="bg-primary text-white p-3 rounded-r-full hover:bg-primary-dark transition duration-300 ease-in-out">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 text-sm mt-12">
+            &copy; 2025 TechFlow. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <div id="modal-cadastro-container"></div>
+
+    <script src="/frontend/static/js/modalcadastro.js"></script>
+    
+    <script src="/frontend/static/js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // O caminho para o seu arquivo modalcadastro.html.
+            // O erro 404 indica que este caminho está incorreto para o seu servidor.
+            // Teste a seguinte opção, que é a mais provável se a pasta 'templates' está no mesmo nível do 'index.html'
+            // na raiz do seu projeto/servidor web.
+            const modalHtmlPath = 'modalcadastro.html'; // Tente este caminho, que causou o 404
+
+            // Se o caminho acima persistir no 404, TENTE ESTE:
+            // const modalHtmlPath = './templates/modalcadastro.html'; 
+            // OU este:
+            // const modalHtmlPath = 'templates/modalcadastro.html'; 
+
+            // Se o seu 'index.html' está dentro de '/frontend/templates/' e 'modalcadastro.html' está lá também,
+            // e o Live Server serve a raiz do projeto (não 'frontend'), então o caminho seria algo como:
+            // const modalHtmlPath = '/frontend/templates/modalcadastro.html'; // <--- ESTE É O MAIS PROVÁVEL DADA A SUA ESTRUTURA DE URL
+
+            console.log(`Tentando carregar modal de: ${modalHtmlPath}`); // Adicione para depuração
+
+            fetch(modalHtmlPath)
+                .then(response => {
+                    if (!response.ok) {
+                        // Isso irá mostrar um erro no console se o arquivo não for encontrado (404)
+                        // ou se houver outro problema HTTP (ex: 500).
+                        throw new Error(`Erro HTTP! Status: ${response.status} ao carregar o modal de cadastro. URL: ${response.url}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    // Insere o HTML do modal no contêiner
+                    document.getElementById('modal-cadastro-container').innerHTML = html;
+                    
+                    // Agora que o HTML do modal está no DOM, podemos inicializar sua lógica JS.
+                    // A função initializeCadastroModal foi exposta globalmente pelo modalcadastro.js.
+                    if (window.initializeCadastroModal) {
+                        window.initializeCadastroModal();
+                        console.log("Modal de cadastro carregado e inicializado com sucesso!");
+                    } else {
+                        console.error("A função 'initializeCadastroModal' não foi encontrada. Verifique se 'modalcadastro.js' foi carregado corretamente e se exporta a função.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Falha ao carregar ou inicializar o modal de registro:', error);
+                    alert('Não foi possível carregar o formulário de registro. Por favor, tente novamente mais tarde. Verifique o console para detalhes.');
+                });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Adicione a classe 'block' (ou equivalente) ao botão do menu mobile para ele ser visível
+            // Se o botão não estiver no HTML, este script não fará nada.
+            // Supondo que o botão de toggle esteja em algum lugar no seu header
+            // Ex: <button id="mobile-menu-toggle" class="lg:hidden ...">☰</button>
+            if (mobileMenuToggle && mobileMenu) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

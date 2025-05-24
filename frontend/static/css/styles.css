@@ -1,0 +1,17 @@
+/* Garante que Tailwind não sobrescreva cores personalizadas */
+@layer utilities {
+    .bg-custom-primary { background-color: #3591E8; }
+    .text-custom-primary { color: #3591E8; }
+    .border-custom-primary { border-color: #3591E8; }
+}
+
+/* Otimizações para mobile */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+}
