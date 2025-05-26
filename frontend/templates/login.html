@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registre-se na TechFlow</title>
+    <link rel="icon" type="image/png" href="/frontend/static/imagens/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/cadastro.css"> 
+</head>
+<!-- Menu-->
+<header class="bg-white shadow-sm py-4 fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center z-60">
+                <img src="/frontend/static/imagens/logo.png" 
+                     alt="TechFlow Logo" 
+                     class="h-12 md:h-16 w-auto transition-all duration-300 hover:scale-105">
+            </div>
+
+            <div class="hidden lg:flex flex-grow justify-center items-center">
+                <div class="flex gap-8 mx-8">
+                    <a href="#sobre" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Sobre</a>
+                    <a href="#como-funciona" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Como Funciona</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Depoimentos</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-4 flex flex-col gap-4">
+                <div class="flex flex-col gap-4">
+                    <a href="#sobre" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Sobre</a>
+                    <a href="#como-funciona" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Como Funciona</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Depoimentos</a>
+                </div>
+        </div>
+    </header>
+
+
+<body class="bg-[#f1f7fd] relative overflow-hidden">
+  <!-- Bolhas animadas no fundo -->
+  <span class="bubble"></span>
+  <span class="bubble" style="left: 70%; width: 50px; height: 50px;"></span>
+  <span class="bubble" style="left: 40%; width: 40px; height: 40px;"></span>
+
+  <!-- Conteúdo -->
+  <div class="flex items-center justify-center min-h-screen px-4">
+    <div class="bg-white rounded-xl shadow-xl p-8 sm:p-10 w-full max-w-md">
+      <div class="flex justify-center mb-4">
+         <img src="/frontend/static/imagens/logo.png" alt="Tech Flow" class="h-8 md:h-10" />
+      </div>
+      <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Entrar</h2>
+      <form>
+        <div class="mb-4">
+          <label for="email" class="block text-sm text-gray-700">Email</label>
+          <input type="email" id="email" class="input-style" placeholder="Seu email" required />
+        </div>
+        <div class="mb-6">
+          <label for="senha" class="block text-sm text-gray-700">Senha</label>
+          <input type="password" id="senha" class="input-style" placeholder="Sua senha" required />
+        </div>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition">
+          Entrar
+        </button>
+        <p class="text-sm text-center mt-4">
+          Não tem uma conta?
+          <a href="teladecadastro.html" class="text-blue-600 hover:underline">Cadastrar</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  </body>
+</html>
