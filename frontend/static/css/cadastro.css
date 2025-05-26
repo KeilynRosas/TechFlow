@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilo reutilizável para inputs */
+.input-style {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.5rem;      /* rounded-lg */
+  background-color: #ffffff;
+  color: #1f2937;             /* gray-800 */
+  transition: all 0.3s ease-in-out;
+}
+
+.input-style:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-500 */
+}
+
+/* Bolhas animadas no fundo */
+.bubble {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(59, 130, 246, 0.15);
+  border-radius: 50%;
+  bottom: -40px;
+  left: 50%;
+  animation: rise 20s infinite ease-in;
+}
+
+.bubble.delay-1 { left: 20%; animation-delay: 2s; animation-duration: 18s; }
+.bubble.delay-2 { left: 40%; animation-delay: 4s; animation-duration: 25s; }
+.bubble.delay-3 { left: 60%; animation-delay: 1s; animation-duration: 22s; }
+.bubble.delay-4 { left: 80%; animation-delay: 3s; animation-duration: 20s; }
+
+@keyframes rise {
+  0% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-50vh) scale(1.2); opacity: 0.6; }
+  100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+}
+
+/* Animação de entrada */
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-fade {
+  animation: slideFadeIn 1s ease-out forwards;
+}
