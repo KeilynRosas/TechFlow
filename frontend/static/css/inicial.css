@@ -1,0 +1,9 @@
+        /* Custom colors from specification */
+        .bg-\[\#f1f6fb\] { background-color: #f1f6fb; }
+        .bg-\[\#f9fbfc\] { background-color: #f9fbfc; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-500 { color: #6b7280; }
+        .border-gray-300 { border-color: #d1d5db; }
+        .border-gray-200 { border-color: #e2e8f0; }
+        .bg-blue-500 { background-color: #3b82f6; }
+        .text-blue-500 { color: #3b82f6; }
