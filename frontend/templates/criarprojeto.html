@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crie seu Projeto na TechFlow</title>
+    <link rel="icon" type="image/png" href="/frontend/static/imagens/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/cadastro.css"> 
+</head>
+<!-- Menu-->
+<header class="bg-white shadow-sm py-4 fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center z-60">
+                <img src="/frontend/static/imagens/logo.png" 
+                     alt="TechFlow Logo" 
+                     class="h-12 md:h-16 w-auto transition-all duration-300 hover:scale-105">
+            </div>
+
+            <div class="hidden lg:flex flex-grow justify-center items-center">
+                <div class="flex gap-8 mx-8">
+                    <a href="#sobre" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Sobre</a>
+                    <a href="#como-funciona" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Como Funciona</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors">Depoimentos</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg hidden" id="mobile-menu">
+            <div class="container mx-auto px-4 py-4 flex flex-col gap-4">
+                <div class="flex flex-col gap-4">
+                    <a href="#sobre" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Sobre</a>
+                    <a href="#como-funciona" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Como Funciona</a>
+                    <a href="#depoimentos" class="text-gray-600 hover:text-[#3591E8] font-medium transition-colors py-2">Depoimentos</a>
+                </div>
+        </div>
+    </header>
+<body class="bg-[#f9fbfc] min-h-screen">
+    <!-- Container Principal -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Cabeçalho -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-semibold text-[#1e293b]">Novo Projeto</h1>
+            <p class="text-[#64748b]">Organize suas tarefas em projetos</p>
+        </div>
+
+        <!-- Formulário -->
+        <div class="bg-white rounded-xl shadow-md p-6 border border-[#e2e8f0]">
+            <form class="space-y-6">
+                <!-- Nome do Projeto -->
+                <div>
+                    <label class="block text-sm font-medium text-[#1e293b] mb-2">Nome do Projeto</label>
+                    <input type="text" 
+                           class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]">
+                </div>
+
+                <!-- Descrição -->
+                <div>
+                    <label class="block text-sm font-medium text-[#1e293b] mb-2">Descrição</label>
+                    <textarea rows="3" 
+                              class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]"></textarea>
+                </div>
+
+                <!-- Ações -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                    <button type="button" 
+                            class="px-6 py-2 w-full sm:w-auto border border-[#cbd5e1] text-[#1e293b] rounded-lg hover:bg-[#f1f5f9] transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" 
+                            class="px-6 py-2 w-full sm:w-auto bg-[#3b82f6] text-white rounded-lg hover:bg-[#2563eb] transition-colors">
+                        Criar Projeto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script Externo -->
+    <script src="/frontend/static/js/criarprojeto.js"></script>
+</body>
+</html>
