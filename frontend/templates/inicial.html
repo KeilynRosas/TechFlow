@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow - Organize suas tarefas e aumente sua produtividade</title>
+    <link rel="icon" type="image/png" href="/frontend/static/imagens/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/inicial.css"> 
+</head>
+<body class="flex h-screen bg-[#f9fbfc]">
+
+    <aside class="w-64 bg-[#f1f6fb] h-screen fixed top-0 left-0 flex flex-col items-start pl-6 pt-6 space-y-6 shadow-lg">
+        <div class="flex items-center space-x-3 mb-6">
+            <div class="relative w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="text-lg font-semibold text-gray-800">Samira</p>
+                <p class="text-sm text-gray-500">Administrador</p>
+            </div>
+        </div>
+
+        <button class="flex items-center justify-center w-52 py-3 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            Adicionar Tarefa
+        </button>
+
+        <nav class="w-full">
+            <ul class="space-y-4">
+                <li>
+                    <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        Buscar
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Calendário
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                        Etiqueta
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <hr class="border-t border-gray-200 my-4 w-52">
+
+        <div class="w-full">
+            <h3 class="text-md font-semibold text-gray-800 mb-3">Projeto</h3>
+            <ul class="space-y-3">
+                <li>
+                    <a href="/frontend/templates/criarprojeto.html" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                        Familiar
+                    </a>
+                </li>
+                <li>
+                    <a href="/frontend/templates/criarprojeto.html" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        Financeiro
+                    </a>
+                </li>
+                <li>
+                    <a href="/frontend/templates/criarprojeto.html" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        Pessoal
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="w-full flex justify-between px-2 mt-auto pb-6">
+            <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                Buscar
+            </a>
+            </div>
+            <div>
+            <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM12 14c-6.627 0-10 2.253-10 5v2h20v-2c0-2.747-3.373-5-10-5z"></path></svg>
+                Adicionar Membros
+            </a>
+        </div>
+        <div class="w-full pb-6">
+            <a href="#" class="flex items-center justify-center py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-lg transition duration-150 ease-in-out">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Log out
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 p-6 bg-[#f9fbfc] overflow-auto">
+        <h1 class="text-2xl font-semibold text-gray-800 mt-8 mb-6">Hoje</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <h2 class="font-semibold text-gray-700 text-lg mb-4">A fazer (0)</h2>
+                <div class="space-y-3">
+                <p class="text-gray-500 text-sm italic">Nenhuma tarefa em andamento.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <h2 class="font-semibold text-gray-700 text-lg mb-4">Fazendo (0)</h2>
+                <div class="space-y-3">
+                    <p class="text-gray-500 text-sm italic">Nenhuma tarefa em andamento.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                <h2 class="font-semibold text-gray-700 text-lg mb-4">Concluído(0)</h2>
+                <div class="space-y-3">
+                    <p class="text-gray-500 text-sm italic">Nenhuma tarefa em andamento.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
