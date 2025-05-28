@@ -7,9 +7,10 @@
     <link rel="icon" type="image/png" href="/frontend/static/imagens/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/frontend/static/css/inicial.css"> 
+    <link rel="stylesheet" href="/frontend/static/css/inicial.css">
 </head>
 <body class="flex h-screen bg-[#f9fbfc]">
+    <script src="/frontend/static/js/authChecker.js"></script>
 
     <aside class="w-64 bg-[#f1f6fb] h-screen fixed top-0 left-0 flex flex-col items-start pl-6 pt-6 space-y-6 shadow-lg">
         <div class="flex items-center space-x-3 mb-6">
@@ -91,7 +92,7 @@
             </a>
         </div>
         <div class="w-full pb-6">
-            <a href="#" class="flex items-center justify-center py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-lg transition duration-150 ease-in-out">
+            <a href="#" id="logoutButton" class="flex items-center justify-center py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-lg transition duration-150 ease-in-out">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Log out
             </a>
@@ -126,5 +127,6 @@
 
         </div>
     </main>
+    <script src="/frontend/static/js/logout.js"></script>
 </body>
 </html>
