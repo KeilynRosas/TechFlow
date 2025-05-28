@@ -1,16 +1,35 @@
-document.getElementById('cadastroForm').addEventListener('submit', function (e) {
-  e.preventDefault();
+// frontend/static/js/cadastro.js
+document.getElementById('cadastroForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        nome: document.getElementById('nome').value.trim(),
+        email: document.getElementById('email').value.trim().toLowerCase(),
+        senha: document.getElementById('senha').value,
+        confirmarSenha: document.getElementById('confirmarSenha').value
+    };
 
-  const nome = document.getElementById('nome').value;
-  const email = document.getElementById('email').value;
-  const senha = document.getElementById('senha').value;
-  const confirmarSenha = document.getElementById('confirmarSenha').value;
+    try {
+        const response = await fetch('http://localhost:5000/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
 
-  if (senha !== confirmarSenha) {
-    alert('As senhas não coincidem.');
-    return;
-  }
+        const data = await response.json();
 
-  console.log('Usuário cadastrado:', { nome, email });
-  alert('Cadastro realizado com sucesso!');
-});
+        if (!response.ok) {
+            throw new Error(data.erro || 'Erro desconhecido');
+        }
+
+        // Redireciona se sucesso
+        alert(data.mensagem);
+        window.location.href = '/login.html'; 
+
+    } catch (error) {
+        // Exibe mensagem de erro detalhada
+        alert(`Erro no cadastro: ${error.message}`);
+    }
+})
