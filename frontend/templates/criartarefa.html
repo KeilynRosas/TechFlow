@@ -1,92 +1,69 @@
-<!-- cadastro_tarefa.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Tarefas</title>
+    <title>TechFlow - Criar/Editar Tarefa</title>
+    <link rel="icon" type="image/png" href="/frontend/static/imagens/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-[#f9fbfc] min-h-screen">
-    <div class="max-w-4xl mx-auto px-4 py-8">
-        <!-- Cabeçalho -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-semibold text-[#1e293b]">Nova Tarefa</h1>
-            <p class="text-[#64748b]">Organize suas atividades diárias</p>
-        </div>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/static/css/inicial.css"> </head>
+<body class="bg-[#f9fbfc] flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 id="form-title" class="text-2xl font-semibold text-gray-800 mb-6 text-center">Criar Nova Tarefa</h2>
 
-        <!-- Formulário -->
-        <div class="bg-white rounded-xl shadow-md p-6 border border-[#e2e8f0]">
-            <form id="taskForm" class="space-y-6">
-                <!-- Título -->
-                <div>
-                    <label class="block text-sm font-medium text-[#1e293b] mb-2">Título*</label>
-                    <input type="text" 
-                           class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]"
-                           required>
-                </div>
+        <form id="taskForm">
+            <div class="mb-4">
+                <label for="titulo" class="block text-gray-700 text-sm font-bold mb-2">Título da Tarefa <span class="text-red-500">*</span></label>
+                <input type="text" id="titulo" name="titulo" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
 
-                <!-- Descrição -->
-                <div>
-                    <label class="block text-sm font-medium text-[#1e293b] mb-2">Descrição</label>
-                    <textarea rows="3"
-                              class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]"></textarea>
-                </div>
+            <div class="mb-4">
+                <label for="descricao" class="block text-gray-700 text-sm font-bold mb-2">Descrição (Opcional)</label>
+                <textarea id="descricao" name="descricao" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            </div>
 
-                <!-- Detalhes -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Data de Vencimento -->
-                    <div>
-                        <label class="block text-sm font-medium text-[#1e293b] mb-2">Data de Vencimento*</label>
-                        <input type="date" 
-                               class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]"
-                               required>
-                    </div>
+            <div class="mb-4">
+                <label for="data_vencimento" class="block text-gray-700 text-sm font-bold mb-2">Data de Vencimento <span class="text-red-500">*</span></label>
+                <input type="date" id="data_vencimento" name="data_vencimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
 
-                    <!-- Prioridade -->
-                    <div>
-                        <label class="block text-sm font-medium text-[#1e293b] mb-2">Prioridade*</label>
-                        <select class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]">
-                            <option value="baixa">Baixa</option>
-                            <option value="media">Média</option>
-                            <option value="alta">Alta</option>
-                        </select>
-                    </div>
-                </div>
+            <div class="mb-4">
+                <label for="prioridade" class="block text-gray-700 text-sm font-bold mb-2">Prioridade <span class="text-red-500">*</span></label>
+                <select id="prioridade" name="prioridade" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    <option value="">Selecione a Prioridade</option>
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média">Média</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            </div>
 
-                <!-- Projeto Associado -->
-                <div>
-                    <label class="block text-sm font-medium text-[#1e293b] mb-2">Projeto</label>
-                    <select class="w-full p-3 border border-[#cbd5e1] rounded-lg focus:ring-2 focus:ring-[#3b82f6] focus:border-[#3b82f6]">
-                        <option value="">Selecione um projeto</option>
-                        <option value="1">Projeto Familiar</option>
-                        <option value="2">Projeto Financeiro</option>
-                        <option value="3">Projeto Pessoal</option>
-                    </select>
-                </div>
+            <div class="mb-4">
+                <label for="projeto" class="block text-gray-700 text-sm font-bold mb-2">Projeto Associado (Opcional)</label>
+                <select id="projeto" name="projeto" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">Nenhum</option>
+                    <option value="Familiar">Familiar</option>
+                    <option value="Financeiro">Financeiro</option>
+                    <option value="Pessoal">Pessoal</option>
+                </select>
+            </div>
 
-                <!-- Status -->
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" id="status" class="w-5 h-5 accent-[#3b82f6]">
-                    <label for="status" class="text-sm text-[#1e293b]">Tarefa concluída</label>
-                </div>
+            <div class="mb-6 flex items-center">
+                <input type="checkbox" id="concluida" name="concluida" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                <label for="concluida" class="text-gray-700 text-sm font-bold">Tarefa concluída?</label>
+            </div>
 
-                <!-- Ações -->
-                <div class="flex flex-col sm:flex-row gap-3 pt-6">
-                    <button type="button" 
-                            class="px-6 py-2 w-full sm:w-auto border border-[#cbd5e1] text-[#1e293b] rounded-lg hover:bg-[#f1f5f9] transition-colors">
-                        Cancelar
-                    </button>
-                    <button type="submit" 
-                            class="px-6 py-2 w-full sm:w-auto bg-[#3b82f6] text-white rounded-lg hover:bg-[#2563eb] transition-colors">
-                        Salvar Tarefa
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" id="submitButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Salvar Tarefa
+                </button>
+                <button type="button" id="cancelButton" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Cancelar
+                </button>
+            </div>
+        </form>
     </div>
 
-    <!-- Script Externo -->
     <script src="/frontend/static/js/criartarefas.js"></script>
 </body>
 </html>

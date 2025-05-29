@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/frontend/static/css/inicial.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="flex h-screen bg-[#f9fbfc]">
     <script src="/frontend/static/js/authChecker.js"></script>
@@ -15,20 +16,20 @@
     <aside class="w-64 bg-[#f1f6fb] h-screen fixed top-0 left-0 flex flex-col items-start pl-6 pt-6 space-y-6 shadow-lg">
         <div class="flex items-center space-x-3 mb-6">
             <div class="relative w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                </svg>
+                <i class="fas fa-user-circle text-white text-3xl"></i>
             </div>
             <div>
-                <p class="text-lg font-semibold text-gray-800">Samira</p>
+                <p id="user-name" class="text-lg font-semibold text-gray-800">Carregando...</p>
                 <p class="text-sm text-gray-500">Administrador</p>
             </div>
         </div>
 
-        <button class="flex items-center justify-center w-52 py-3 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+        <a id="add-tarefa-btn" href="/frontend/templates/criartarefa.html" class="flex items-center justify-center w-52 py-3 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
             Adicionar Tarefa
-        </button>
+        </a>
 
         <nav class="w-full">
             <ul class="space-y-4">
@@ -84,15 +85,15 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 Buscar
             </a>
-            </div>
-            <div>
+        </div>
+        <div>
             <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150 ease-in-out">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM12 14c-6.627 0-10 2.253-10 5v2h20v-2c0-2.747-3.373-5-10-5z"></path></svg>
                 Adicionar Membros
             </a>
         </div>
         <div class="w-full pb-6">
-            <a href="#" id="logoutButton" class="flex items-center justify-center py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-lg transition duration-150 ease-in-out">
+            <a href="#" id="logout-btn" class="flex items-center justify-center py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-500 rounded-lg transition duration-150 ease-in-out">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Log out
             </a>
@@ -104,29 +105,30 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <h2 class="font-semibold text-gray-700 text-lg mb-4">A fazer (0)</h2>
-                <div class="space-y-3">
-                <p class="text-gray-500 text-sm italic">Nenhuma tarefa em andamento.</p>
+            <div id="todo-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="a fazer">
+                <h2 class="font-semibold text-gray-700 text-lg mb-4">A Fazer <span id="todo-count">(0)</span></h2>
+                <div id="todo-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded">
+                    <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa para fazer.</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <h2 class="font-semibold text-gray-700 text-lg mb-4">Fazendo (0)</h2>
-                <div class="space-y-3">
-                    <p class="text-gray-500 text-sm italic">Nenhuma tarefa em andamento.</p>
+            <div id="doing-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="fazendo">
+                <h2 class="font-semibold text-gray-700 text-lg mb-4">Fazendo <span id="doing-count">(0)</span></h2>
+                <div id="doing-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded">
+                    <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa em andamento.</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                <h2 class="font-semibold text-gray-700 text-lg mb-4">Concluído(0)</h2>
-                <div class="space-y-3">
-                    <p class="text-gray-500 text-sm italic">Nenhuma tarefa em andamento.</p>
+            <div id="done-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="concluido">
+                <h2 class="font-semibold text-gray-700 text-lg mb-4">Concluído <span id="done-count">(0)</span></h2>
+                <div id="done-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded">
+                    <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa concluída.</p>
                 </div>
             </div>
 
         </div>
     </main>
     <script src="/frontend/static/js/logout.js"></script>
+    <script src="/frontend/static/js/inicial.js"></script>
 </body>
 </html>
