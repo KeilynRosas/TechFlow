@@ -508,16 +508,21 @@ def listar_tarefas():
         logger.error(f"Erro ao listar tarefas para o usuário {request.user_id}: {str(e)}")
         return jsonify({'erro': 'Erro interno no servidor ao listar tarefas.'}), 500
 
+# ... (código anterior permanece igual)
+
 @app.route('/tasks/<int:task_id>', methods=['PATCH'])
-@jwt_required # Protege esta rota
+@jwt_required
 def atualizar_status_tarefa(task_id):
-    """
-    Atualiza o status de uma tarefa específica do usuário logado.
-    Usado principalmente para a funcionalidade de arrastar e soltar (drag-and-drop).
-    """
     try:
         dados = request.get_json()
         novo_status = dados.get('status')
+        
+        # Log detalhado para depuração
+        app.logger.info(f"PATCH /tasks/{task_id} - Novo status: {novo_status}")
+        app.logger.info(f"Payload recebido: {dados}")
+
+        # LOG ADICIONAL PARA DEPURAÇÃO:
+        logger.info(f"Recebida requisição PATCH para tarefa {task_id}. Novo status desejado: '{novo_status}'")
 
         # Validação do novo status
         if not novo_status or novo_status not in ['a fazer', 'fazendo', 'concluido']:
