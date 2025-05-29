@@ -1,24 +1,50 @@
-// frontend/static/js/inicial.js
+// Adicione estas funções auxiliares no início do arquivo
+function formatarData(dataString) {
+    if (!dataString) return 'Não definida';
+    
+    try {
+        // Tenta converter para objeto Date
+        const dataObj = new Date(dataString);
+        
+        // Verifica se é uma data válida
+        if (isNaN(dataObj.getTime())) {
+            throw new Error('Data inválida');
+        }
+        
+        // Formata para o padrão brasileiro
+        return dataObj.toLocaleDateString('pt-BR');
+    } catch (error) {
+        console.error('Erro ao formatar data:', error, 'Valor recebido:', dataString);
+        return 'Data inválida';
+    }
+}
+
+function parseISODate(dateString) {
+    // Divide a string em partes
+    const partes = dateString.split('T')[0].split('-');
+    if (partes.length !== 3) return null;
+    
+    // Cria nova data no fuso horário local
+    return new Date(
+        parseInt(partes[0]), // ano
+        parseInt(partes[1]) - 1, // mês (0-indexed)
+        parseInt(partes[2]) // dia
+    );
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('inicial.js: DOM Content Loaded. Iniciando...');
-
-    // Assumimos que authChecker.js já foi carregado e está sendo executado.
-    // Você pode chamar checkAuthentication() aqui se ele não for automaticamente chamado.
-    // await checkAuthentication(); // Descomente se authChecker.js não estiver sendo incluído
-
-    // Carregar e renderizar as tarefas assim que a página é carregada
+    // Chama a função para carregar o perfil do usuário logo no início
+    await loadUserProfile(); // Carrega perfil primeiro, se necessário para UI
     await loadAndRenderTasks();
 
-    // Adiciona event listener para o botão de adicionar tarefa
     const addTarefaBtn = document.getElementById('add-tarefa-btn');
     if (addTarefaBtn) {
         addTarefaBtn.addEventListener('click', () => {
-            window.location.href = '/frontend/templates/criartarefa.html'; // Garante o caminho correto
+            window.location.href = '/frontend/templates/criartarefa.html';
         });
     }
 
-    // Adiciona event listener para o botão de logout
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
@@ -26,20 +52,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Adiciona os event listeners de drop para as colunas (para Drag and Drop)
     document.querySelectorAll('.task-column').forEach(column => {
         column.addEventListener('dragover', handleDragOver);
         column.addEventListener('drop', handleDrop);
-        column.addEventListener('dragleave', handleDragLeave); // Adicionado para feedback visual
+        column.addEventListener('dragleave', handleDragLeave);
     });
 });
+
+// Mapeamento de status (data-status das colunas) para IDs dos elementos de contador
+const statusToCounterId = {
+    'a fazer': 'todo-count',
+    'fazendo': 'doing-count',
+    'concluido': 'done-count'
+};
+
+// Mapeamento de status para IDs das listas de tarefas
+const statusToTaskListId = {
+    'a fazer': 'todo-tasks-list',
+    'fazendo': 'doing-tasks-list',
+    'concluido': 'done-tasks-list'
+};
+
 
 async function loadAndRenderTasks() {
     console.log('inicial.js: Carregando e renderizando tarefas...');
     const token = localStorage.getItem('jwt_token');
 
     if (!token) {
-        console.error('inicial.js: Token JWT não encontrado. Redirecionando para login.');
         alert('Sua sessão expirou. Por favor, faça login novamente.');
         window.location.href = '/login.html';
         return;
@@ -56,9 +95,8 @@ async function loadAndRenderTasks() {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('inicial.js: Erro ao carregar tarefas:', errorData.erro);
-            alert(`Erro ao carregar tarefas: ${errorData.erro}. Por favor, tente novamente.`);
-            // Se o erro for 401, a sessão pode ter expirado, então redirecione.
+            console.error('Erro ao carregar tarefas:', errorData.erro);
+            alert(`Erro ao carregar tarefas: ${errorData.erro}.`);
             if (response.status === 401) {
                 localStorage.removeItem('jwt_token');
                 window.location.href = '/login.html';
@@ -66,85 +104,89 @@ async function loadAndRenderTasks() {
             return;
         }
 
-        const tasks = await response.json();
-        console.log('inicial.js: Tarefas carregadas com sucesso:', tasks);
-        console.log(`inicial.js: Tarefas 'A Fazer' recebidas: ${tasks['a fazer'].length}`);
-        console.log(`inicial.js: Tarefas 'Fazendo' recebidas: ${tasks['fazendo'].length}`);
-        console.log(`inicial.js: Tarefas 'Concluído' recebidas: ${tasks['concluido'].length}`);
+        const tasksByStatus = await response.json(); // Espera-se que tasks seja um objeto: {'a fazer': [], 'fazendo': [], 'concluido': []}
+        console.log('Tarefas carregadas com sucesso:', tasksByStatus);
 
+        // Limpa apenas os cards de tarefas existentes, preservando as mensagens de coluna vazia
+        Object.values(statusToTaskListId).forEach(listId => {
+            const taskList = document.getElementById(listId);
+            if (taskList) {
+                // Remove todos os filhos que são cards de tarefa
+                taskList.querySelectorAll('.task-card').forEach(card => card.remove());
+            }
+        });
 
-        // Limpa os contêineres de tarefas antes de renderizar novamente
-        document.getElementById('todo-tasks-list').innerHTML = '';
-        document.getElementById('doing-tasks-list').innerHTML = '';
-        document.getElementById('done-tasks-list').innerHTML = '';
-
-        // Oculta todas as mensagens de "Nenhuma tarefa" inicialmente
-        document.querySelectorAll('.empty-column-message').forEach(el => el.style.display = 'none');
-
-        // Renderiza as tarefas nas colunas apropriadas
-        tasks['a fazer'].forEach(task => createTaskCard(task, 'todo-tasks-list'));
-        tasks['fazendo'].forEach(task => createTaskCard(task, 'doing-tasks-list'));
-        tasks['concluido'].forEach(task => createTaskCard(task, 'done-tasks-list'));
-
-        // Atualiza os contadores de tarefas
-        document.getElementById('todo-count').textContent = `(${tasks['a fazer'].length})`;
-        document.getElementById('doing-count').textContent = `(${tasks['fazendo'].length})`;
-        document.getElementById('done-count').textContent = `(${tasks['concluido'].length})`;
-
-        // Mostra a mensagem de "Nenhuma tarefa" se a coluna estiver vazia
-        if (tasks['a fazer'].length === 0) {
-            const emptyMessage = document.createElement('p');
-            emptyMessage.className = 'text-gray-500 text-sm italic empty-column-message';
-            emptyMessage.textContent = 'Nenhuma tarefa para fazer.';
-            document.getElementById('todo-tasks-list').appendChild(emptyMessage);
+        // Renderiza tarefas
+        if (tasksByStatus['a fazer']) {
+            tasksByStatus['a fazer'].forEach(task => createTaskCard(task, statusToTaskListId['a fazer']));
         }
-        if (tasks['fazendo'].length === 0) {
-            const emptyMessage = document.createElement('p');
-            emptyMessage.className = 'text-gray-500 text-sm italic empty-column-message';
-            emptyMessage.textContent = 'Nenhuma tarefa em andamento.';
-            document.getElementById('doing-tasks-list').appendChild(emptyMessage);
+        if (tasksByStatus['fazendo']) {
+            tasksByStatus['fazendo'].forEach(task => createTaskCard(task, statusToTaskListId['fazendo']));
         }
-        if (tasks['concluido'].length === 0) {
-            const emptyMessage = document.createElement('p');
-            emptyMessage.className = 'text-gray-500 text-sm italic empty-column-message';
-            emptyMessage.textContent = 'Nenhuma tarefa concluída.';
-            document.getElementById('done-tasks-list').appendChild(emptyMessage);
+        if (tasksByStatus['concluido']) {
+            tasksByStatus['concluido'].forEach(task => createTaskCard(task, statusToTaskListId['concluido']));
         }
-
+        
+        // Atualiza contadores e visibilidade das mensagens de coluna vazia
+        updateTaskCounters();
 
     } catch (error) {
-        console.error('inicial.js: Erro na requisição para carregar tarefas:', error);
-        alert('Ocorreu um erro ao carregar suas tarefas. Tente recarregar a página.');
+        console.error('Erro ao carregar tarefas:', error);
+        alert('Ocorreu um erro ao carregar suas tarefas.');
     }
 }
+
+// REMOVIDA: function showEmptyMessages(tasks) - agora é gerenciado por updateTaskCounters e HTML estático
 
 function createTaskCard(task, columnListId) {
     const columnList = document.getElementById(columnListId);
     if (!columnList) {
-        console.error(`Contêiner de lista de tarefas com ID "${columnListId}" não encontrado.`);
+        console.error(`Lista de coluna com ID ${columnListId} não encontrada.`);
         return;
     }
 
     const taskCard = document.createElement('div');
-    taskCard.className = 'task-card bg-white rounded-lg shadow-md p-4 mb-3 cursor-grab'; // Adicionei classes de estilo e cursor
+    taskCard.className = 'task-card bg-white rounded-lg shadow-md p-4 mb-3 cursor-grab';
     taskCard.setAttribute('draggable', 'true');
     taskCard.id = `task-${task.id}`;
+    taskCard.dataset.taskId = task.id;
 
     let priorityClass = '';
-    if (task.prioridade === 'Alta') {
-        priorityClass = 'bg-red-200 text-red-800'; // Exemplo de classe Tailwind para alta prioridade
-    } else if (task.prioridade === 'Média') {
-        priorityClass = 'bg-yellow-200 text-yellow-800'; // Exemplo para média
-    } else if (task.prioridade === 'Baixa') {
-        priorityClass = 'bg-green-200 text-green-800'; // Exemplo para baixa
+    switch (task.prioridade) {
+        case 'Alta': priorityClass = 'bg-red-200 text-red-800'; break;
+        case 'Média': priorityClass = 'bg-yellow-200 text-yellow-800'; break;
+        case 'Baixa': priorityClass = 'bg-green-200 text-green-800'; break;
+        default: priorityClass = 'bg-gray-200 text-gray-800';
     }
 
-    const dueDate = task.data_vencimento ? new Date(task.data_vencimento).toLocaleDateString('pt-BR') : 'Não definida';
+    // Função auxiliar para formatar datas de forma segura
+    const formatarData = (dataString) => {
+        if (!dataString) return 'Não definida';
+        
+        try {
+            // Extrai apenas a parte da data (ignora o tempo)
+            const [dataPart] = dataString.split('T');
+            const [ano, mes, dia] = dataPart.split('-').map(Number);
+            
+            // Verifica se os valores são válidos
+            if (isNaN(ano) || isNaN(mes) || isNaN(dia)) {
+                throw new Error('Valores numéricos inválidos');
+            }
+            
+            // Formata para DD/MM/AAAA
+            return `${dia.toString().padStart(2, '0')}/${mes.toString().padStart(2, '0')}/${ano}`;
+        } catch (error) {
+            console.error('Erro ao formatar data:', error, 'Valor recebido:', dataString);
+            return 'Data inválida';
+        }
+    };
+
+    const dueDate = formatarData(task.data_vencimento);
 
     taskCard.innerHTML = `
         <div class="task-header flex justify-between items-center mb-2">
             <h3 class="font-semibold text-gray-800 text-base">${task.titulo}</h3>
-            <span class="priority text-xs font-bold px-2 py-1 rounded-full ${priorityClass}">${task.prioridade}</span>
+            <span class="priority text-xs font-bold px-2 py-1 rounded-full ${priorityClass}">${task.prioridade || 'N/A'}</span>
         </div>
         <p class="text-gray-600 text-sm mb-2">${task.descricao || 'Sem descrição'}</p>
         <div class="task-details text-gray-500 text-xs flex justify-between items-center mb-3">
@@ -159,79 +201,137 @@ function createTaskCard(task, columnListId) {
 
     columnList.appendChild(taskCard);
 
-    // Adiciona event listeners para Drag and Drop
+    // Event listeners
     taskCard.addEventListener('dragstart', handleDragStart);
-
-    // Adiciona event listeners para botões de editar e excluir
     taskCard.querySelector('.edit-btn').addEventListener('click', (e) => {
-        e.stopPropagation(); // Impede que o evento de arrastar seja disparado ao clicar no botão
+        e.stopPropagation();
         editTask(task.id);
     });
     taskCard.querySelector('.delete-btn').addEventListener('click', (e) => {
-        e.stopPropagation(); // Impede que o evento de arrastar seja disparado ao clicar no botão
+        e.stopPropagation();
         deleteTask(task.id);
     });
 }
 
-// Funções para Drag and Drop
-let currentDraggedTaskId = null; // Variável global para armazenar o ID da tarefa sendo arrastada
+let draggedItem = null; // Referência ao elemento sendo arrastado
+let sourceColumnElement = null; // Referência ao elemento da coluna de origem
 
 function handleDragStart(e) {
-    // Garante que o item arrastado é o cartão da tarefa (o elemento com 'draggable="true"')
-    const taskCard = e.target.closest('.task-card');
-    if (taskCard) {
-        currentDraggedTaskId = taskCard.id.replace('task-', ''); // Armazena apenas o ID numérico
+    draggedItem = e.target.closest('.task-card');
+    if (draggedItem) {
         e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/plain', taskCard.id); // Define o ID completo (ex: "task-123") para a transferência
-        console.log('handleDragStart: Task ID sendo arrastado:', currentDraggedTaskId);
-        console.log('handleDragStart: Dados definidos para dataTransfer:', taskCard.id);
-    } else {
-        // Se por algum motivo o .task-card não for encontrado, previne o comportamento padrão de arrasto
-        e.preventDefault();
-        console.warn('handleDragStart: Não foi possível encontrar o .task-card mais próximo para a operação de arrasto.');
+        e.dataTransfer.setData('text/plain', draggedItem.id);
+        sourceColumnElement = draggedItem.closest('.task-column'); // A coluna DOM de origem
+        // Adiciona uma classe para feedback visual (opcional)
+        draggedItem.classList.add('dragging');
+        console.log('Drag iniciado da coluna:', sourceColumnElement.dataset.status, 'Task ID:', draggedItem.dataset.taskId);
     }
 }
 
 function handleDragOver(e) {
-    e.preventDefault(); // Necessário para permitir o drop
+    e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
-    // Opcional: Adicionar feedback visual ao arrastar sobre
-    e.currentTarget.classList.add('border-blue-400', 'border-2');
+    const column = e.currentTarget.closest('.task-column');
+    if (column) {
+      column.classList.add('border-blue-400', 'border-2'); // Feedback visual na coluna de destino
+    }
 }
 
 function handleDragLeave(e) {
-    // Opcional: Remover feedback visual
-    e.currentTarget.classList.remove('border-blue-400', 'border-2');
+    const column = e.currentTarget.closest('.task-column');
+    if (column) {
+      column.classList.remove('border-blue-400', 'border-2');
+    }
 }
 
 async function handleDrop(e) {
     e.preventDefault();
-    // Opcional: Remover feedback visual
-    e.currentTarget.classList.remove('border-blue-400', 'border-2');
+    e.stopPropagation();
+    
+    const targetColumnElement = e.currentTarget.closest('.task-column');
+    targetColumnElement.classList.remove('border-blue-400', 'border-2');
 
-    const rawTaskId = e.dataTransfer.getData('text/plain'); // Pega o ID completo 'task-X'
-    const taskId = rawTaskId.replace('task-', ''); // Extrai apenas o número do ID
-    const droppedOnColumn = e.currentTarget; // A coluna onde o item foi solto (div com class 'task-column')
-    const newStatus = droppedOnColumn.dataset.status; // Obtém o status do atributo data-status da coluna
-
-    console.log(`handleDrop: Raw Task ID from dataTransfer: ${rawTaskId}, Extracted ID: ${taskId}`);
-    console.log(`handleDrop: Solto na coluna com status: ${newStatus}`);
-
-    if (taskId && newStatus) { // Verifica se o ID da tarefa e o novo status são válidos
-        await updateTaskStatus(taskId, newStatus);
-        // A remoção e re-renderização visual agora é feita exclusivamente por loadAndRenderTasks()
-    } else {
-        console.warn('handleDrop: ID da tarefa ou novo status é nulo/indefinido. Operação de arrasto abortada.');
+    if (!draggedItem || !targetColumnElement) {
+        if (draggedItem) draggedItem.classList.remove('dragging');
+        draggedItem = null;
+        sourceColumnElement = null;
+        return;
     }
-    currentDraggedTaskId = null; // Limpa o ID da tarefa arrastada após a operação
+    
+    const taskId = draggedItem.dataset.taskId;
+    const newStatus = targetColumnElement.dataset.status;
+    const originalStatus = sourceColumnElement.dataset.status;
+
+    // Não faz nada se soltar na mesma coluna
+    if (targetColumnElement === sourceColumnElement) {
+        draggedItem.classList.remove('dragging');
+        draggedItem = null;
+        sourceColumnElement = null;
+        return;
+    }
+
+    // 1. Movimento otimista - atualiza UI imediatamente
+    const targetList = targetColumnElement.querySelector('.tasks-list');
+    targetList.appendChild(draggedItem); // Move o elemento
+    draggedItem.classList.remove('dragging');
+    
+    // 2. Atualizar contadores e mensagens de coluna vazia IMEDIATAMENTE
+    updateTaskCounters();
+
+    try {
+        // 3. Atualizar backend
+        await updateTaskStatus(taskId, newStatus);
+        console.log(`Tarefa ${taskId} movida para ${newStatus} com sucesso no backend.`);
+        // Sucesso, a UI já está correta.
+    } catch (error) {
+        console.error('Falha na atualização do status no backend:', error);
+        
+        // Reverter movimento no DOM em caso de erro no backend
+        const originalList = sourceColumnElement.querySelector('.tasks-list');
+        originalList.appendChild(draggedItem); // Devolve o item para a lista original
+        
+        // Atualizar contadores novamente para refletir o estado revertido
+        updateTaskCounters();
+        alert('Falha ao mover tarefa. A alteração foi desfeita.');
+    } finally {
+        // Limpa as variáveis de estado do drag
+        draggedItem = null;
+        sourceColumnElement = null;
+    }
 }
+
+function updateTaskCounters() {
+    console.log('Atualizando contadores...');
+    Object.keys(statusToTaskListId).forEach(statusKey => { // 'a fazer', 'fazendo', 'concluido'
+        const listId = statusToTaskListId[statusKey];
+        const taskListElement = document.getElementById(listId);
+        
+        if (taskListElement) {
+            const count = taskListElement.querySelectorAll('.task-card').length;
+            const counterId = statusToCounterId[statusKey]; // 'todo-count', 'doing-count', 'done-count'
+            const counterElement = document.getElementById(counterId);
+
+            if (counterElement) {
+                counterElement.textContent = `(${count})`;
+            }
+
+            const emptyMessageElement = taskListElement.querySelector('.empty-column-message');
+            if (emptyMessageElement) {
+                emptyMessageElement.style.display = count === 0 ? 'block' : 'none';
+            }
+        } else {
+            console.warn(`Elemento da lista de tarefas não encontrado para status: ${statusKey} (ID: ${listId})`);
+        }
+    });
+}
+
 
 async function updateTaskStatus(taskId, newStatus) {
     const token = localStorage.getItem('jwt_token');
     if (!token) {
         alert('Sua sessão expirou. Faça login novamente.');
         window.location.href = '/login.html';
-        return;
+        throw new Error('Token não encontrado'); // Lança erro para ser pego pelo catch no handleDrop
     }
 
     try {
@@ -246,33 +346,23 @@ async function updateTaskStatus(taskId, newStatus) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('inicial.js: Erro ao atualizar status da tarefa:', errorData.erro);
-            alert(`Erro ao atualizar status: ${errorData.erro}`);
-            // Se o backend falhar, recarregue para reverter o estado visual
-            await loadAndRenderTasks();
-            return;
+            console.error('Erro ao atualizar status no backend:', errorData);
+            throw new Error(errorData.erro || 'Erro ao atualizar status da tarefa no servidor');
         }
 
         console.log(`Status da tarefa ${taskId} atualizado para ${newStatus} no backend.`);
-        // Após o sucesso no backend, recarregue todas as tarefas para garantir a consistência visual
-        await loadAndRenderTasks();
-
+        // Não precisa recarregar todas as tarefas aqui, a UI já foi atualizada otimisticamente.
     } catch (error) {
-        console.error('inicial.js: Erro na requisição PATCH para atualizar status:', error);
-        alert('Erro de conexão ao atualizar status da tarefa.');
-        // Reverter a mudança visual em caso de erro de rede
-        await loadAndRenderTasks(); // Recarrega para restaurar o estado original
+        console.error('Exceção em updateTaskStatus:', error);
+        throw error; // Re-lança o erro para que handleDrop possa tratá-lo (reverter UI)
     }
 }
 
-// Função para editar tarefa (pode redirecionar ou abrir modal)
 function editTask(taskId) {
     console.log(`Editar tarefa com ID: ${taskId}`);
-    // CORREÇÃO AQUI: Aponta para criartarefa.html e passa o ID na URL
     window.location.href = `/frontend/templates/criartarefa.html?id=${taskId}`;
 }
 
-// Função para deletar tarefa
 async function deleteTask(taskId) {
     if (!confirm('Tem certeza que deseja excluir esta tarefa?')) {
         return;
@@ -299,14 +389,21 @@ async function deleteTask(taskId) {
         }
 
         alert('Tarefa excluída com sucesso!');
-        await loadAndRenderTasks(); // Recarrega as tarefas após a exclusão
+        // Remove o card da tarefa do DOM
+        const taskCardElement = document.getElementById(`task-${taskId}`);
+        if (taskCardElement) {
+            taskCardElement.remove();
+        }
+        // Atualiza os contadores
+        updateTaskCounters();
+        // Não é necessário chamar loadAndRenderTasks() se a remoção do DOM e a atualização do contador forem suficientes
+        // await loadAndRenderTasks(); // Recarrega tudo, pode ser evitado
     } catch (error) {
         console.error('inicial.js: Erro ao deletar tarefa:', error);
         alert(`Erro ao deletar tarefa: ${error.message}`);
     }
 }
 
-// Função para fazer logout
 async function logout() {
     const token = localStorage.getItem('jwt_token');
     if (token) {
@@ -326,17 +423,20 @@ async function logout() {
             window.location.href = '/login.html';
         }
     } else {
-        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('jwt_token'); // Garante que está limpo
         alert('Você já estava desconectado.');
         window.location.href = '/login.html';
     }
 }
 
-// Função para buscar dados do perfil do usuário e exibir o nome
 async function loadUserProfile() {
     const token = localStorage.getItem('jwt_token');
     if (!token) {
         console.log('Nenhum token encontrado para carregar perfil.');
+        // Se não há token e a página não é login.html, pode ser útil redirecionar
+        // if (window.location.pathname !== '/login.html' && window.location.pathname !== '/frontend/templates/cadastro.html') {
+        //     window.location.href = '/login.html';
+        // }
         return;
     }
 
@@ -358,17 +458,20 @@ async function loadUserProfile() {
         } else {
             const errorData = await response.json();
             console.error('Erro ao carregar perfil:', errorData.erro);
-            // Se o token for inválido/expirado, limpe e redirecione
-            if (response.status === 401) {
+            if (response.status === 401 || response.status === 422) { // 422 Unprocessable Entity (token inválido)
                 localStorage.removeItem('jwt_token');
-                alert('Sua sessão expirou. Faça login novamente.');
-                window.location.href = '/login.html';
+                // Evita múltiplos alertas se loadAndRenderTasks também falhar por token
+                if (window.location.pathname !== '/login.html') {
+                     alert('Sua sessão expirou ou é inválida. Faça login novamente.');
+                     window.location.href = '/login.html';
+                }
             }
         }
     } catch (error) {
         console.error('Erro de conexão ao carregar perfil:', error);
+        // Em caso de falha de rede, pode não ser um problema de token
+        // alert('Falha ao conectar com o servidor para carregar seu perfil.');
     }
 }
 
-// Chama a função para carregar o perfil do usuário logo no início
-document.addEventListener('DOMContentLoaded', loadUserProfile);
+// Removida a segunda chamada DOMContentLoaded para loadUserProfile, já está no início do primeiro.
