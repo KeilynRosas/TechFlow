@@ -101,33 +101,33 @@
     </aside>
 
     <main class="flex-1 ml-64 p-6 bg-[#f9fbfc] overflow-auto">
-        <h1 class="text-2xl font-semibold text-gray-800 mt-8 mb-6">Hoje</h1>
+    <h1 class="text-2xl font-semibold text-gray-800 mt-8 mb-6">Hoje</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div id="todo-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="a fazer">
-                <h2 class="font-semibold text-gray-700 text-lg mb-4">A Fazer <span id="todo-count">(0)</span></h2>
-                <div id="todo-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded">
-                    <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa para fazer.</p>
-                </div>
+        <div id="todo-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="a fazer">
+            <h2 class="font-semibold text-gray-700 text-lg mb-4">A Fazer <span id="todo-count">(0)</span></h2>
+            <div id="todo-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded tasks-list">
+                <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa para fazer.</p>
             </div>
-
-            <div id="doing-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="fazendo">
-                <h2 class="font-semibold text-gray-700 text-lg mb-4">Fazendo <span id="doing-count">(0)</span></h2>
-                <div id="doing-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded">
-                    <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa em andamento.</p>
-                </div>
-            </div>
-
-            <div id="done-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="concluido">
-                <h2 class="font-semibold text-gray-700 text-lg mb-4">Concluído <span id="done-count">(0)</span></h2>
-                <div id="done-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded">
-                    <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa concluída.</p>
-                </div>
-            </div>
-
         </div>
-    </main>
+
+        <div id="doing-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="fazendo">
+            <h2 class="font-semibold text-gray-700 text-lg mb-4">Fazendo <span id="doing-count">(0)</span></h2>
+            <div id="doing-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded tasks-list">
+                <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa em andamento.</p>
+            </div>
+        </div>
+
+        <div id="done-tasks-column" class="bg-white rounded-xl border border-gray-200 p-4 shadow-sm task-column" data-status="concluido">
+            <h2 class="font-semibold text-gray-700 text-lg mb-4">Concluído <span id="done-count">(0)</span></h2>
+            <div id="done-tasks-list" class="space-y-3 min-h-[100px] border border-dashed border-gray-300 p-2 rounded tasks-list">
+                <p class="text-gray-500 text-sm italic empty-column-message">Nenhuma tarefa concluída.</p>
+            </div>
+        </div>
+
+    </div>
+</main>
     <script src="/frontend/static/js/logout.js"></script>
     <script src="/frontend/static/js/inicial.js"></script>
 </body>
