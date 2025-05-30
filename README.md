@@ -7,11 +7,10 @@
 ## 📚 Seções do README
 
 - [Desenvolvedoras](#-desenvolvedoras)
-- [Sobre o projeto](#-sobre-o-projeto)
 - [Visão Geral](#visão-geral)
 - [Dificuldades do projeto](#dificuldades-do-projeto)
 - [Tecnologias](#tecnologias)
-- [Estrutura do projeto](#estrutura-do-projeto)
+- [Como funciona](#como-funciona)
 - [Funcionalidades](#funcionalidades)
 - [Arquitetura Básica](#arquitetura-básica)
 
@@ -27,11 +26,10 @@
 
 
 ## ‼️ Dificuldades do projeto
- - 
- -
- - 
- - 
- - 
+
+ - Gestão de tarefas
+ - Flask
+ - Autenticação com o pyJWT
 
 ## 🛠️ Tecnologias
 
@@ -47,12 +45,14 @@
 | 🔒 PyJWT           | Backend (Implementação de JSON Web Tokens para autenticação)   
 ---
 
-## 📁 Estrutura do projeto
+## 📁 Como funciona
 
-```
-![Texto Alternativo](/frontend/static/imagens/Captura%20de%20tela%202025-05-29%20103006.png "Título Opcional")
-
----
+- Baixe o projeto do git
+- Abra o terminal e instale as dependencias (pip install Flask Flask-SQLAlchemy Werkzeug Flask-CORS PyJWT)
+- Inicie o servidor Flask atraves do termina utilizando (python backend/app.py)
+- Abra o index atraves do Live Serve
+- Cadastre-se, depois clique no link entrar na dela de registro, faça login com as credenciais cadastradas. 
+- Crie as taferas/edite/delete 
 
 ## ⚙️ Funcionalidades
 - Cadastre e Autentique Usuários: Garante acesso seguro e personalizado às suas tarefas.
@@ -64,4 +64,5 @@
 - Exclua Tarefas: Mantenha sua lista sempre atualizada removendo itens concluídos ou desnecessários.
 
 ## 📑 Arquitetura Básica
+
 - MVC
